@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <vector>
 #include "Screen.h"
+#include "Utill.h"
 
 using namespace std;
 
@@ -20,15 +21,10 @@ using namespace std;
 
 int main() 
 {
-    Screen sc;
-    cout << "test" << endl;
+	FileManager Manager;
 
-	Widget First("주한새", 10, 10), Second("박상빈", 20, 20);
+	Manager.RoadRanking();
 
-	sc.AddWidget(First);
-	sc.AddWidget(Second);
-
-	sc.Show();
     //char c;
     //vector<char> buf;
     //while (true) 
