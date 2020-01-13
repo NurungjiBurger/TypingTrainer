@@ -9,42 +9,51 @@
 
 using namespace std;
 
-void PrintBuf(const vector<char>& buf)
-{
-    system("cls");
-    for (int i = 0; i < buf.size(); i++)
-    {
-        cout << buf[i];
-    }
-}
+//void PrintBuf(const vector<char>& buf)
+//{
+//    system("cls");
+//    for (int i = 0; i < buf.size(); i++)
+//    {
+//        cout << buf[i];
+//    }
+//}
 
 int main() 
 {
-	
-    char c;
-    vector<char> buf;
-    while (true) 
-    { 
-        c = _getch();
-        if (c == 27) {
-            break;
-        }
+    Screen sc;
+    cout << "test" << endl;
 
-        if (c == '\b') {
-            if (buf.empty() == false) {
-                buf.pop_back();
-            }
-            cout << "\b \b";
-        }
-        else if (c == 13) {
-            cout << endl;
-        }
-        else {
-            buf.push_back(c);
-            cout << c;
-        }
-    
-    }
+	Widget First("주한새", 10, 10), Second("박상빈", 20, 20);
+
+	sc.AddWidget(First);
+	sc.AddWidget(Second);
+
+	sc.Show();
+    //char c;
+    //vector<char> buf;
+    //while (true) 
+    //{ 
+    //    c = _getch();
+    //    if (c == 27) {
+    //        break;
+    //    }
+
+    //    if (c == '\b') {
+    //        if (buf.empty() == false) {
+    //            buf.pop_back();
+    //        }
+    //        //PrintBuf(buf);
+    //        cout << "\b \b";
+    //    }
+    //    else if (c == 13) {
+    //        cout << endl;
+    //    }
+    //    else {
+    //        buf.push_back(c);
+    //        cout << c;
+    //    }
+    //
+    //}
     return 0;
 }
 

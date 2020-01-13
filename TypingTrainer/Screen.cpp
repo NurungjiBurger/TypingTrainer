@@ -1,54 +1,52 @@
-#include <vector>
 #include "Screen.h"
-
+#include <iostream>
+#include <Windows.h>
 using namespace std;
 
-Screen::Screen() {
-	mWidth = 30;
-	mHeight = 30;
-	mWidgets = new Widget();
-}
-Screen::Screen(const Screen& other) {
-
-}
-
-virtual Screen::~Screen() {
-
+Screen::Screen()
+	: mWidth(40),
+	mHeight(40),
+	mFocus(0),
+	mWidgets()
+{
+	cout << "spawned!" << endl;
 }
 
-void Screen::AddData(const string& s, const int x, const int y, const bool select) {
+Screen::~Screen()
+{
 
-	Widget obj(s, x, y, select);
+}
+
+void Screen::AddWidget(const Widget& obj) {
 
 	mWidgets.push_back(obj);
 
 }
 void Screen::Show() const {
-	
+
 	COORD Cur;
 
 	for (int i = 0; i < mWidgets.size(); i++) {
 		Cur.X = mWidgets[i].GetX();
 		Cur.Y = mWidgets[i].GetY();
-		SetConsolCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Cur);
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Cur);
 		cout << mWidgets[i].GetString();
 	}
 
 }
 
-Widget::Widget() {
+Widget::Widget(int x, int y)
+	: mX(x)
+	, mY(y)
+	, mSelectable(false)
+	, mStringData("")
+{
+}
+
+Widget::Widget(const std::string& s, int x, int y) : mX(x), mY(y), mSelectable(false), mStringData(s) {
 
 }
 
-Widget::Widget(String s, int x, int y, bool select) {
-	mX = x, mY = y, mStr = s, mSelect = select;
+Widget::~Widget()
+{
 }
-
-Widget::Widget(const Widget& other) {
-
-}
-
-virtual Widget::~Widget() {
-
-}
-

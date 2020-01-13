@@ -1,44 +1,50 @@
 #pragma once
+
 #include <string>
 #include <vector>
 
 using namespace std;
 
-class Widget {
-public :
-	Widget();
-	Widget(String s, int x, int y, bool select);
-	Widget(const Widget& other);
+class Widget
+{
+public:
+	//Widget();
+	Widget(int x, int y);
+	Widget(const std::string& s, int x, int y);
+	//Widget(const Widget& other);
+
 	virtual ~Widget();
+	int GetX() const { return mX; }
+	int GetY() const { return mY; }
+	string GetString() const { return mStringData; }
+	bool GetSelectable() const { return mSelectable; }
 
-	int GetX() { return mX; }
-	int GetY() { return mY; }
-	string GetString() { return mStr; }
-	bool GetSelectable() { return mSelect; }
+	void SetPos(int x, int y) { mX = x, mY = y; }
+	void SetSelectable(bool selectable) { mSelectable = selectable; }
+	void SetStringData(const std::string& s) { mStringData = s; }
 
-	void SetCursor(int x, int y) { mX = x, mY = y; }
-	void SetString(string str) { mStr = str; }
-	void SetSelectable(bool v) { mSelect = v; }
-
-private :
+private:
 	int mX;
 	int mY;
-	string mStr;
-	bool mSelect;
-
+	bool mSelectable;
+	string mStringData;
 };
 
-class Screen {
-public :
+
+class Screen
+{
+public:
 	Screen();
-	Screen(const Screen& other);
+	//Screen(const Screen& other);
 	virtual ~Screen();
-	void AddData(const string& s,const int x,const int y,const bool select);
+	void AddWidget(const Widget& widget);
 	void Show() const;
 
-private :
+private:
 	int mWidth;
 	int mHeight;
+	int mFocus;
 	vector<Widget> mWidgets;
-
 };
+
+
