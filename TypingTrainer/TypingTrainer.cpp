@@ -5,6 +5,7 @@
 #include <conio.h>
 #include <cstdlib>
 #include <vector>
+#include "Screen.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ void PrintBuf(const vector<char>& buf)
 
 int main() 
 {
+	
     char c;
     vector<char> buf;
     while (true) 
@@ -32,7 +34,6 @@ int main()
             if (buf.empty() == false) {
                 buf.pop_back();
             }
-            //PrintBuf(buf);
             cout << "\b \b";
         }
         else if (c == 13) {
