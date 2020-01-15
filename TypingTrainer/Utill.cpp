@@ -1,5 +1,4 @@
 #include "Utill.h"
-#include <iostream>
 using namespace std;
 
 FileManager::FileManager() : mRankings() {
@@ -37,7 +36,7 @@ void FileManager::SaveRanking() {
 	Write.open("Ranking.txt");
 	for (int i = 0; i < mRankings.size(); i++) {
 		tmp = "";
-		tmp = tmp + mRankings[i].GetNick() + "," + to_string(mRankings[i].GetAccuracy()) +"," + to_string(mRankings[i].GetTime()) + "," + to_string(mRankings[i].GetCPM()) + "\n";
+		tmp = tmp + mRankings[i].GetNick() + "," + to_string(mRankings[i].GetAccuracy()) + "," + to_string(mRankings[i].GetTime()) + "," + to_string(mRankings[i].GetCPM()) + "\n";
 		Write.write(tmp.c_str(), tmp.size());
 	}
 	Write.close();
@@ -49,7 +48,7 @@ void FileManager::Realignment(char Type, string Order) {
 
 	if (Order == "UP") {
 		switch (Type) {
-		case 'N': 
+		case 'N':
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetNick() < mRankings[j].GetNick()) {
@@ -60,7 +59,7 @@ void FileManager::Realignment(char Type, string Order) {
 				}
 			}
 			break;
-		case 'A': 
+		case 'A':
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetAccuracy() < mRankings[j].GetAccuracy()) {
@@ -71,7 +70,7 @@ void FileManager::Realignment(char Type, string Order) {
 				}
 			}
 			break;
-		case 'T': 
+		case 'T':
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetTime() < mRankings[j].GetTime()) {
@@ -82,7 +81,7 @@ void FileManager::Realignment(char Type, string Order) {
 				}
 			}
 			break;
-		case 'C': 
+		case 'C':
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetCPM() < mRankings[j].GetCPM()) {
