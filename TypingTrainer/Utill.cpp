@@ -4,9 +4,13 @@ using namespace std;
 
 Ranking::Ranking() {}
 
-Ranking::Ranking(const string nick, const int acc, const int time, const int cpm) : mNick(nick), mAccuracy(acc), mTime(time), mCPM(cpm) {}
+Ranking::Ranking(const string nick, const int acc, const int time, const int cpm) {
+	mNick = nick;
+	mAccuracy = acc;
+	mTime = time;
+	mCPM = cpm;
+}
 
-Ranking::Ranking(const Ranking& other) {}
 
 Ranking::~Ranking() {}
 
@@ -16,9 +20,8 @@ Ranking::~Ranking() {}
 
 FileManager::FileManager() {
 	mRankings();
+	cout << "생성됨!\n";
 }
-
-FileManager::FileManager(const FileManager& other) {}
 
 FileManager::~FileManager() {}
 
@@ -38,7 +41,7 @@ void FileManager::RoadRanking() {
 		}
 		Read.close();
 	}
-	else cout << "파일이 존재하지 않습니다."
+	else cout << "파일이 존재하지 않습니다.";
 }
 
 void FileManager::SaveRanking() {

@@ -1,6 +1,6 @@
 ﻿// TypingTrainer.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 //
-
+#pragma once
 #include <iostream>
 #include <conio.h>
 #include <cstdlib>
@@ -23,7 +23,6 @@ int main()
 {
 	FileManager Manager;
 
-	Manager.RoadRanking();
 
     //char c;
     //vector<char> buf;

@@ -10,7 +10,6 @@ class Ranking {
 public:
 	Ranking();
 	Ranking(const string nick, const int acc, const int time, const int cpm);
-	Ranking(const Ranking& other);
 	virtual ~Ranking();
 
 	string GetNick() { return mNick; }
@@ -28,7 +27,6 @@ private:
 class FileManager{
 public :
 	FileManager();
-	FileManager(const FileManager& other);
 	virtual ~FileManager();
 	
 	void RoadRanking();
