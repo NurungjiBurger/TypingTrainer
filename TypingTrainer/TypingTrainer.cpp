@@ -1,11 +1,12 @@
 ﻿// TypingTrainer.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
 //
-
+#pragma once
 #include <iostream>
 #include <conio.h>
 #include <cstdlib>
 #include <vector>
 #include "Screen.h"
+#include "Utill.h"
 
 using namespace std;
 
@@ -20,11 +21,16 @@ using namespace std;
 
 int main() 
 {
+
+	FileManager *Manager = new FileManager();
+
+
     Screen sc(60,30);
     sc.Show();
     char a;
     cin >> a;
-    //cout << "test" << endl;
+
+
     //char c;
     //vector<char> buf;
     //while (true) 

@@ -5,6 +5,7 @@
 
 void SetConsoleWindowSize(int x, int y);
 
+
 class Widget
 {
 public:
@@ -16,6 +17,7 @@ public:
 	virtual ~Widget();
 	int GetX() const { return mX; }
 	int GetY() const { return mY; }
+	string GetString() const { return mStringData; }
 	bool GetSelectable() const { return mSelectable; }
 	std::string GetString() const { return mStringData; }
 
@@ -45,7 +47,7 @@ private:
 	int mWidth;
 	int mHeight;
 	int mFocus;
-	std::vector<Widget> mWidgets;
+	vector<Widget> mWidgets;
 };
 
 
