@@ -21,7 +21,7 @@ using namespace std;
 
 int main() 
 {
-	FileManager Manager;
+	FileManager *Manager = new FileManager();
 
 
     //char c;

@@ -2,28 +2,13 @@
 #include <iostream>
 using namespace std;
 
-Ranking::Ranking() {}
-
-Ranking::Ranking(const string nick, const int acc, const int time, const int cpm) {
-	mNick = nick;
-	mAccuracy = acc;
-	mTime = time;
-	mCPM = cpm;
-}
-
-
-Ranking::~Ranking() {}
-
-
-
-
-
-FileManager::FileManager() {
-	mRankings();
+FileManager::FileManager() : mRankings() {
 	cout << "생성됨!\n";
 }
 
-FileManager::~FileManager() {}
+FileManager::~FileManager() {
+
+}
 
 void FileManager::RoadRanking() {
 	// txt 파일에 저장된 랭킹 데이터를 mRankings 에 저장
@@ -52,22 +37,22 @@ void FileManager::SaveRanking() {
 	Write.open("Ranking.txt");
 	for (int i = 0; i < mRankings.size(); i++) {
 		tmp = "";
-		tmp = tmp + mRankings[i].GetNick() + "," + mRankings[i].GetAccuracy() + "," + mRankings[i].GetTime() + "," + mRankings[i].GetCPM() + "\n";
+		tmp = tmp + mRankings[i].GetNick() + "," + to_string(mRankings[i].GetAccuracy()) +"," + to_string(mRankings[i].GetTime()) + "," + to_string(mRankings[i].GetCPM()) + "\n";
 		Write.write(tmp.c_str(), tmp.size());
 	}
 	Write.close();
 }
 
-void FileManager::Realignment(string Type, string Order) {
+void FileManager::Realignment(char Type, string Order) {
 
 	Ranking tmp;
 
-	if (order == "UP") {
+	if (Order == "UP") {
 		switch (Type) {
-		case "Nick": 
+		case 'N': 
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
-					if (mRankings[i].GetNick() < mRankings[j].GetNIck()) {
+					if (mRankings[i].GetNick() < mRankings[j].GetNick()) {
 						tmp = mRankings[i];
 						mRankings[i] = mRankings[j];
 						mRankings[j] = tmp;
@@ -75,7 +60,7 @@ void FileManager::Realignment(string Type, string Order) {
 				}
 			}
 			break;
-		case "Accuracy": 
+		case 'A': 
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetAccuracy() < mRankings[j].GetAccuracy()) {
@@ -86,7 +71,7 @@ void FileManager::Realignment(string Type, string Order) {
 				}
 			}
 			break;
-		case "Time": 
+		case 'T': 
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetTime() < mRankings[j].GetTime()) {
@@ -97,7 +82,7 @@ void FileManager::Realignment(string Type, string Order) {
 				}
 			}
 			break;
-		case "CPM": 
+		case 'C': 
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetCPM() < mRankings[j].GetCPM()) {
@@ -112,10 +97,10 @@ void FileManager::Realignment(string Type, string Order) {
 	}
 	else { // DOWN
 		switch (Type) {
-		case "Nick":
+		case 'N':
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
-					if (mRankings[i].GetNick() > mRankings[j].GetNIck()) {
+					if (mRankings[i].GetNick() > mRankings[j].GetNick()) {
 						tmp = mRankings[i];
 						mRankings[i] = mRankings[j];
 						mRankings[j] = tmp;
@@ -123,7 +108,7 @@ void FileManager::Realignment(string Type, string Order) {
 				}
 			}
 			break;
-		case "Accuracy":
+		case 'A':
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetAccuracy() > mRankings[j].GetAccuracy()) {
@@ -134,7 +119,7 @@ void FileManager::Realignment(string Type, string Order) {
 				}
 			}
 			break;
-		case "Time":
+		case 'T':
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetTime() > mRankings[j].GetTime()) {
@@ -145,7 +130,7 @@ void FileManager::Realignment(string Type, string Order) {
 				}
 			}
 			break;
-		case "CPM":
+		case 'C':
 			for (int i = 0; i < mRankings.size(); i++) {
 				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetCPM() > mRankings[j].GetCPM()) {
@@ -160,3 +145,11 @@ void FileManager::Realignment(string Type, string Order) {
 	}
 
 }
+
+
+Ranking::Ranking() : mNick(""), mAccuracy(0), mTime(0), mCPM(0) {}
+
+Ranking::Ranking(const string nick, const int acc, const int time, const int cpm) : mNick(nick), mAccuracy(acc), mTime(time), mCPM(cpm) {
+}
+
+Ranking::~Ranking() {}

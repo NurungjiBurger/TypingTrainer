@@ -33,7 +33,7 @@ public :
 
 	void SaveRanking();
 
-	void Realignment(string Type, string Order);
+	void Realignment(char Type, string Order);
 
 private :
 	vector<Ranking> mRankings;
