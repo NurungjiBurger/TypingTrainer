@@ -21,7 +21,14 @@ using namespace std;
 
 int main() 
 {
+
 	FileManager *Manager = new FileManager();
+
+
+    Screen sc(60,30);
+    sc.Show();
+    char a;
+    cin >> a;
 
 
     //char c;
