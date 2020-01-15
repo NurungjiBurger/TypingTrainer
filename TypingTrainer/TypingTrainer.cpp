@@ -20,8 +20,11 @@ using namespace std;
 
 int main() 
 {
-    Screen sc;
-    cout << "test" << endl;
+    Screen sc(60,30);
+    sc.Show();
+    char a;
+    cin >> a;
+    //cout << "test" << endl;
     //char c;
     //vector<char> buf;
     //while (true) 

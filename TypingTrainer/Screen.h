@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+void SetConsoleWindowSize(int x, int y);
+
 class Widget
 {
 public:
@@ -15,6 +17,7 @@ public:
 	int GetX() const { return mX; }
 	int GetY() const { return mY; }
 	bool GetSelectable() const { return mSelectable; }
+	std::string GetString() const { return mStringData; }
 
 	void SetPos(int x, int y) { mX = x, mY = y; }
 	void SetSelectable(bool selectable) { mSelectable = selectable; }
@@ -32,6 +35,7 @@ class Screen
 {
 public:
 	Screen();
+	Screen(int x, int y);
 	//Screen(const Screen& other);
 	virtual ~Screen();
 	void AddWidget(const Widget& widget);
