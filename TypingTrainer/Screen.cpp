@@ -79,16 +79,27 @@ Screen::~Screen()
 
 void Screen::Show() const {
 
-	COORD Cur;
+	COORD cur;
     SetConsoleWindowSize(mWidth, mHeight);
+
+    cur.X = 0;
+    cur.Y = 0;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cur);
+    cout << setw(mWidth) << setfill('=') << "" ;
 	
 
 	for (size_t i = 0; i < mWidgets.size(); i++) {
-		Cur.X = mWidgets[i].GetX();
-		Cur.Y = mWidgets[i].GetY();
-		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Cur);
+		cur.X = mWidgets[i].GetX();
+		cur.Y = mWidgets[i].GetY();
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cur);
 		cout << mWidgets[i].GetString();
 	}
+
+    cur.X = 0;
+    cur.Y = mHeight-1;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cur);
+    cout << setw(mWidth) << setfill('=') << "";
+    //cout << setfill(' ');
 
 }
 
