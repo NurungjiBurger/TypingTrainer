@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 void SetConsoleWindowSize(int x, int y);
 
 
@@ -19,7 +21,6 @@ public:
 	int GetY() const { return mY; }
 	string GetString() const { return mStringData; }
 	bool GetSelectable() const { return mSelectable; }
-	std::string GetString() const { return mStringData; }
 
 	void SetPos(int x, int y) { mX = x, mY = y; }
 	void SetSelectable(bool selectable) { mSelectable = selectable; }
@@ -49,5 +50,3 @@ private:
 	int mFocus;
 	vector<Widget> mWidgets;
 };
-
-

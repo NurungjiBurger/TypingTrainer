@@ -23,6 +23,11 @@ int main()
 {
 	FileManager manager;
 
+	manager.RoadRanking();
+	manager.showRanking();
+	manager.Realignment('A', "UP");
+	manager.showRanking();
+	manager.SaveRanking();
 
     //char c;
     //vector<char> buf;
