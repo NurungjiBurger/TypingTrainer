@@ -21,13 +21,22 @@ using namespace std;
 
 int main() 
 {
+
+	FileManager manager;
+
+	manager.RoadRanking();
+	manager.showRanking();
+	manager.Realignment('A', "UP");
+	manager.showRanking();
+	manager.SaveRanking();
+
 	//FileManager manager;
-    Screen sc(60,40);
-    Widget t1("Typing Trainer", 20, 20);
-    sc.AddWidget(t1);
-    sc.Show();
-    char a;
-    cin >> a;
+//     Screen sc(60,40);
+//     Widget t1("Typing Trainer", 20, 20);
+//     sc.AddWidget(t1);
+//     sc.Show();
+//     char a;
+//     cin >> a;
 
     //char c;
     //vector<char> buf;

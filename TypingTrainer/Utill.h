@@ -18,6 +18,8 @@ public:
 	int GetTime() { return mTime; }
 	int GetCPM() { return mCPM; }
 
+	void Update(const string nick, const int acc, const int time, const int cpm);
+
 private:
 	string mNick;
 	int mAccuracy;
@@ -35,6 +37,8 @@ public :
 	void SaveRanking();
 
 	void Realignment(char Type, string Order);
+
+	void showRanking();
 
 private :
 	vector<Ranking> mRankings;

@@ -109,7 +109,6 @@ void Screen::AddWidget(const Widget& obj) {
 
 }
 
-
 Widget::Widget(int x, int y)
 	: mX(x)
 	, mY(y)

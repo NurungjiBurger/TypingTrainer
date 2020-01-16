@@ -16,11 +16,19 @@ void FileManager::RoadRanking() {
 	Read.open("Ranking.txt"); // юс╫ц
 	if (Read.is_open()) {
 		while (!Read.eof()) {
-			string tmp;
-			string nick;
+			string str, tmp;
 			int acc, time, cpm;
-			getline(Read, tmp);
 
+			getline(Read, str);
+			getline(Read, tmp);
+			acc = stoi(tmp);
+			getline(Read, tmp);
+			time = stoi(tmp);
+			getline(Read, tmp);
+			cpm = stoi(tmp);
+
+			Ranking data(str, acc, time, cpm);
+			mRankings.push_back(data);
 
 		}
 		Read.close();
@@ -36,10 +44,16 @@ void FileManager::SaveRanking() {
 	Write.open("Ranking.txt");
 	for (int i = 0; i < mRankings.size(); i++) {
 		tmp = "";
-		tmp = tmp + mRankings[i].GetNick() + "," + to_string(mRankings[i].GetAccuracy()) + "," + to_string(mRankings[i].GetTime()) + "," + to_string(mRankings[i].GetCPM()) + "\n";
+		tmp = tmp + mRankings[i].GetNick() + "\n" + to_string(mRankings[i].GetAccuracy()) + "\n" + to_string(mRankings[i].GetTime()) + "\n" + to_string(mRankings[i].GetCPM()) + "\n";
 		Write.write(tmp.c_str(), tmp.size());
 	}
 	Write.close();
+}
+
+void FileManager::showRanking() {
+	for (int i = 0; i < mRankings.size(); i++) {
+		cout << mRankings[i].GetNick() << ", " << mRankings[i].GetAccuracy() << ", " << mRankings[i].GetTime() << ", " << mRankings[i].GetCPM() << "\n";
+	}
 }
 
 void FileManager::Realignment(char Type, string Order) {
@@ -152,3 +166,10 @@ Ranking::Ranking(const string nick, const int acc, const int time, const int cpm
 }
 
 Ranking::~Ranking() {}
+
+void Ranking::Update(const string nick, const int acc, const int time, const int cpm) {
+	mNick = nick;
+	mAccuracy = acc;
+	mTime = time;
+	mCPM = cpm;
+}
