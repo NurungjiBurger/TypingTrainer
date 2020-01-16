@@ -9,7 +9,7 @@
 #include "Utill.h"
 
 using namespace std;
-
+// https://media.discordapp.net/attachments/293378188979994624/667216288782876702/unknown.png?width=481&height=670
 //void PrintBuf(const vector<char>& buf)
 //{
 //    system("cls");
@@ -21,6 +21,7 @@ using namespace std;
 
 int main() 
 {
+
 	FileManager manager;
 
 	manager.RoadRanking();
@@ -28,6 +29,14 @@ int main()
 	manager.Realignment('A', "UP");
 	manager.showRanking();
 	manager.SaveRanking();
+
+	//FileManager manager;
+//     Screen sc(60,40);
+//     Widget t1("Typing Trainer", 20, 20);
+//     sc.AddWidget(t1);
+//     sc.Show();
+//     char a;
+//     cin >> a;
 
     //char c;
     //vector<char> buf;
