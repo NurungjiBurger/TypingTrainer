@@ -147,9 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="TypingTrainer.cpp" />
     <ClCompile Include="Utill.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TypingTrainer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

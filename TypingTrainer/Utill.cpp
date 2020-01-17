@@ -2,52 +2,59 @@
 using namespace std;
 
 FileManager::FileManager() : mRankings() {
-	cout << "생성됨!\n";
+
 }
 
 FileManager::~FileManager() {
 
 }
 
-void FileManager::RoadRanking() {
+void FileManager::RoadRanking()
+{
 	// txt 파일에 저장된 랭킹 데이터를 mRankings 에 저장
-	ifstream Read;
+	ifstream fin;
 
-	Read.open("Ranking.txt"); // 임시
-	if (Read.is_open()) {
-		while (!Read.eof()) {
+
+	fin.open("Ranking.txt"); // 임시
+	if (fin.is_open())
+	{
+		while (!fin.eof())
+		{
 			string str, tmp;
 			int acc, time, cpm;
-
-			getline(Read, str);
-			getline(Read, tmp);
-			acc = stoi(tmp);
-			getline(Read, tmp);
-			time = stoi(tmp);
-			getline(Read, tmp);
-			cpm = stoi(tmp);
-
+			getline(fin, tmp);
+			istringstream iss(tmp);
+			iss >> str >> acc >> time >> cpm;
+			if (iss.fail())
+			{
+				break;
+			}
 			Ranking data(str, acc, time, cpm);
 			mRankings.push_back(data);
-
 		}
-		Read.close();
+		fin.close();
 	}
-	else cout << "파일이 존재하지 않습니다.";
+	else
+	{
+		ofstream fout;
+		fout.open("Ranking.txt");
+	}
+
 }
 
 void FileManager::SaveRanking() {
 	// mRankings 에 저장된 랭킹 데이터를 txt 파일로 저장
-	ofstream Write;
+	ofstream fout;
 	string tmp;
 
-	Write.open("Ranking.txt");
+	fout.open("Ranking.txt");
 	for (int i = 0; i < mRankings.size(); i++) {
-		tmp = "";
-		tmp = tmp + mRankings[i].GetNick() + "\n" + to_string(mRankings[i].GetAccuracy()) + "\n" + to_string(mRankings[i].GetTime()) + "\n" + to_string(mRankings[i].GetCPM()) + "\n";
-		Write.write(tmp.c_str(), tmp.size());
+		if (i == 0) tmp = "";
+		else tmp = "\n";
+		tmp = tmp + mRankings[i].GetNick() + " " + to_string(mRankings[i].GetAccuracy()) + " " + to_string(mRankings[i].GetTime()) + " " + to_string(mRankings[i].GetCPM());
+		fout.write(tmp.c_str(), tmp.size());
 	}
-	Write.close();
+	fout.close();
 }
 
 void FileManager::showRanking() {
@@ -56,104 +63,71 @@ void FileManager::showRanking() {
 	}
 }
 
+void DataSwap(Ranking &a, Ranking &b) {
+	Ranking tmp;
+	tmp = a;
+	a = b;
+	b = tmp;
+}
+
 void FileManager::Realignment(char Type, string Order) {
 
 	Ranking tmp;
 
 	if (Order == "UP") {
-		switch (Type) {
-		case 'N':
-			for (int i = 0; i < mRankings.size(); i++) {
-				for (int j = i + 1; j < mRankings.size(); j++) {
+		for (int i = 0; i < mRankings.size(); i++) {
+			for (int j = i + 1; j < mRankings.size(); j++) {
+				switch (Type) {
+				case 'N':
 					if (mRankings[i].GetNick() < mRankings[j].GetNick()) {
-						tmp = mRankings[i];
-						mRankings[i] = mRankings[j];
-						mRankings[j] = tmp;
+						DataSwap(mRankings[i], mRankings[j]);
 					}
-				}
-			}
-			break;
-		case 'A':
-			for (int i = 0; i < mRankings.size(); i++) {
-				for (int j = i + 1; j < mRankings.size(); j++) {
+					break;
+				case 'A':
 					if (mRankings[i].GetAccuracy() < mRankings[j].GetAccuracy()) {
-						tmp = mRankings[i];
-						mRankings[i] = mRankings[j];
-						mRankings[j] = tmp;
+						DataSwap(mRankings[i], mRankings[j]);
 					}
-				}
-			}
-			break;
-		case 'T':
-			for (int i = 0; i < mRankings.size(); i++) {
-				for (int j = i + 1; j < mRankings.size(); j++) {
+					break;
+				case 'T':
 					if (mRankings[i].GetTime() < mRankings[j].GetTime()) {
-						tmp = mRankings[i];
-						mRankings[i] = mRankings[j];
-						mRankings[j] = tmp;
+						DataSwap(mRankings[i], mRankings[j]);
 					}
-				}
-			}
-			break;
-		case 'C':
-			for (int i = 0; i < mRankings.size(); i++) {
-				for (int j = i + 1; j < mRankings.size(); j++) {
+					break;
+				case 'C':
 					if (mRankings[i].GetCPM() < mRankings[j].GetCPM()) {
-						tmp = mRankings[i];
-						mRankings[i] = mRankings[j];
-						mRankings[j] = tmp;
+						DataSwap(mRankings[i], mRankings[j]);
 					}
+					break;
 				}
 			}
-			break;
 		}
 	}
 	else { // DOWN
-		switch (Type) {
-		case 'N':
-			for (int i = 0; i < mRankings.size(); i++) {
-				for (int j = i + 1; j < mRankings.size(); j++) {
+		for (int i = 0; i < mRankings.size(); i++) {
+			for (int j = i + 1; j < mRankings.size(); j++) {
+				switch (Type) {
+				case 'N':
 					if (mRankings[i].GetNick() > mRankings[j].GetNick()) {
-						tmp = mRankings[i];
-						mRankings[i] = mRankings[j];
-						mRankings[j] = tmp;
+						DataSwap(mRankings[i], mRankings[j]);
 					}
-				}
-			}
-			break;
-		case 'A':
-			for (int i = 0; i < mRankings.size(); i++) {
-				for (int j = i + 1; j < mRankings.size(); j++) {
+					break;
+				case 'A':
 					if (mRankings[i].GetAccuracy() > mRankings[j].GetAccuracy()) {
-						tmp = mRankings[i];
-						mRankings[i] = mRankings[j];
-						mRankings[j] = tmp;
+						DataSwap(mRankings[i], mRankings[j]);
 					}
-				}
-			}
-			break;
-		case 'T':
-			for (int i = 0; i < mRankings.size(); i++) {
-				for (int j = i + 1; j < mRankings.size(); j++) {
+					break;
+				case 'T':
 					if (mRankings[i].GetTime() > mRankings[j].GetTime()) {
-						tmp = mRankings[i];
-						mRankings[i] = mRankings[j];
-						mRankings[j] = tmp;
+						DataSwap(mRankings[i], mRankings[j]);
 					}
-				}
-			}
-			break;
-		case 'C':
-			for (int i = 0; i < mRankings.size(); i++) {
-				for (int j = i + 1; j < mRankings.size(); j++) {
+					break;
+				case 'C':
 					if (mRankings[i].GetCPM() > mRankings[j].GetCPM()) {
-						tmp = mRankings[i];
-						mRankings[i] = mRankings[j];
-						mRankings[j] = tmp;
+						DataSwap(mRankings[i], mRankings[j]);
 					}
+					break;
 				}
 			}
-			break;
 		}
 	}
 

@@ -18,6 +18,7 @@ public:
 	virtual ~Widget();
 	int GetX() const { return mX; }
 	int GetY() const { return mY; }
+	std::string GetString() const { return mStringData; }
 	bool GetSelectable() const { return mSelectable; }
 
 	void SetPos(int x, int y) { mX = x, mY = y; }

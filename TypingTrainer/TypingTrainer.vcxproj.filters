@@ -24,5 +24,13 @@
     <ClCompile Include="Utill.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TypingTrainer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
