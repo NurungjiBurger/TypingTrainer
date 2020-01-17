@@ -1,4 +1,5 @@
 #include "Screen.h"
+#include "Utill.h"
 #include <iostream>
 #include <Windows.h>
 
@@ -7,57 +8,6 @@
 #include <stdexcept>
 
 using namespace std;
-
-// http://www.cplusplus.com/forum/windows/121444/
-void SetConsoleWindowSize(int x, int y)
-{
-    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    if (h == INVALID_HANDLE_VALUE)
-        throw std::runtime_error("Unable to get stdout handle.");
-
-    // If either dimension is greater than the largest console window we can have,
-    // there is no point in attempting the change.
-    {
-        COORD largestSize = GetLargestConsoleWindowSize(h);
-        if (x > largestSize.X)
-            throw std::invalid_argument("The x dimension is too large.");
-        if (y > largestSize.Y)
-            throw std::invalid_argument("The y dimension is too large.");
-    }
-
-
-    CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
-    if (!GetConsoleScreenBufferInfo(h, &bufferInfo))
-        throw std::runtime_error("Unable to retrieve screen buffer info.");
-
-    SMALL_RECT& winInfo = bufferInfo.srWindow;
-    COORD windowSize = { winInfo.Right - winInfo.Left + 1, winInfo.Bottom - winInfo.Top + 1 };
-
-    if (windowSize.X > x || windowSize.Y > y)
-    {
-        // window size needs to be adjusted before the buffer size can be reduced.
-        SMALL_RECT info =
-        {
-            0,
-            0,
-            x < windowSize.X ? x - 1 : windowSize.X - 1,
-            y < windowSize.Y ? y - 1 : windowSize.Y - 1
-        };
-
-        if (!SetConsoleWindowInfo(h, TRUE, &info))
-            throw std::runtime_error("Unable to resize window before resizing buffer.");
-    }
-
-    COORD size = { x, y };
-    if (!SetConsoleScreenBufferSize(h, size))
-        throw std::runtime_error("Unable to resize screen buffer.");
-
-
-    SMALL_RECT info = { 0, 0, x - 1, y - 1 };
-    if (!SetConsoleWindowInfo(h, TRUE, &info))
-        throw std::runtime_error("Unable to resize window after resizing buffer.");
-}
 
 
 Screen::Screen()
@@ -80,7 +30,9 @@ Screen::~Screen()
 void Screen::Show() const {
 
 	COORD cur;
-    SetConsoleWindowSize(mWidth, mHeight);
+	console::SetCursorVisible(false);
+    console::SetWindowSize(mWidth, mHeight);
+	console::SetColor(FOREGROUND_BLUE | BACKGROUND_GREEN);
 
     cur.X = 0;
     cur.Y = 0;
@@ -97,6 +49,7 @@ void Screen::Show() const {
 
     cur.X = 0;
     cur.Y = mHeight-1;
+	console::SetColor(FOREGROUND_BLUE | BACKGROUND_RED);
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cur);
     cout << setw(mWidth) << setfill('=') << "";
     //cout << setfill(' ');
@@ -117,10 +70,32 @@ Widget::Widget(int x, int y)
 {
 }
 
-Widget::Widget(const std::string& s, int x, int y) : mX(x), mY(y), mSelectable(false), mStringData(s) {
+Widget::Widget(const string& s, int x, int y) : mX(x), mY(y), mSelectable(false), mStringData(s) {
 
 }
 
 Widget::~Widget()
+{
+}
+
+Button::Button(int x, int y)
+	:Widget(x, y)
+	, mNext(NULL)
+{
+}
+
+Button::Button(const string& s, int x, int y)
+	: Widget(s, x, y)
+	, mNext(NULL)
+{
+}
+
+Button::Button(Screen* next, const string& s, int x, int y)
+	: Widget(s, x, y)
+	, mNext(next)
+{
+}
+
+Button::~Button()
 {
 }

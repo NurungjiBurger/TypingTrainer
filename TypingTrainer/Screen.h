@@ -1,11 +1,6 @@
 #pragma once
-
 #include <string>
 #include <vector>
-
-
-void SetConsoleWindowSize(int x, int y);
-
 
 class Widget
 {
@@ -14,12 +9,11 @@ public:
 	Widget(int x, int y);
 	Widget(const std::string& s, int x, int y);
 	//Widget(const Widget& other);
-
 	virtual ~Widget();
 	int GetX() const { return mX; }
 	int GetY() const { return mY; }
 	bool GetSelectable() const { return mSelectable; }
-
+	std::string GetString() const { return mStringData; }
 	void SetPos(int x, int y) { mX = x, mY = y; }
 	void SetSelectable(bool selectable) { mSelectable = selectable; }
 	void SetStringData(const std::string& s) { mStringData = s; }
@@ -30,6 +24,7 @@ private:
 	bool mSelectable;
 	std::string mStringData;
 };
+
 
 
 class Screen
@@ -51,3 +46,16 @@ private:
 };
 
 
+class Button : public Widget
+{
+public:
+	Button(int x, int y);
+	Button(const std::string& s, int x, int y);
+	Button(Screen* next, const std::string& s, int x, int y);
+	virtual ~Button();
+	Screen* GetNext() const { return mNext; }
+	void SetNext(Screen* next);
+
+private:
+	Screen* mNext;
+};

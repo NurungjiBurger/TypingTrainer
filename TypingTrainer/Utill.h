@@ -38,10 +38,16 @@ public :
 
 	void Realignment(char Type, string Order);
 
-	void showRanking();
+	void ShowRanking();
 
 private :
 	vector<Ranking> mRankings;
 
 };
 
+namespace console
+{
+	void SetWindowSize(int x, int y);
+	void SetColor(unsigned short color);
+	void SetCursorVisible(bool visible);
+}
