@@ -1,37 +1,9 @@
 #pragma once
-
 #include <string>
 #include <vector>
+#include "Widget.h"
 
-
-void SetConsoleWindowSize(int x, int y);
-
-
-class Widget
-{
-public:
-	//Widget();
-	Widget(int x, int y);
-	Widget(const std::string& s, int x, int y);
-	//Widget(const Widget& other);
-
-	virtual ~Widget();
-	int GetX() const { return mX; }
-	int GetY() const { return mY; }
-	std::string GetString() const { return mStringData; }
-	bool GetSelectable() const { return mSelectable; }
-
-	void SetPos(int x, int y) { mX = x, mY = y; }
-	void SetSelectable(bool selectable) { mSelectable = selectable; }
-	void SetStringData(const std::string& s) { mStringData = s; }
-
-private:
-	int mX;
-	int mY;
-	bool mSelectable;
-	std::string mStringData;
-};
-
+class Widget;
 
 class Screen
 {
@@ -40,17 +12,27 @@ public:
 	Screen(int x, int y);
 	//Screen(const Screen& other);
 	virtual ~Screen();
-	void AddWidget(const Widget& widget);
+	void AddWidget(Widget* widget);
 	void Show() const;
 
-	std::vector<Widget>& GetWidgets() { return mWidgets; }
+	int GetWidth() const { return mWidth; }
+	int GetHeight() const { return mHeight; }
+	int GetFocus() const { return mFocus; }
+	const std::vector<Widget*>& GetWidgets()  {return mWidgets; }
+	const std::vector<int>* GetSelectableIndices() { return &mSelectableIndices; }
+
+	void SetWidth(int width) { mWidth = width; }
+	void SetHeight(int height) { mHeight = height; }
+	void SetFocus(int focus) { mFocus = focus; }
 
 private:
+	void SetSelectableIndices();
 	int mWidth;
 	int mHeight;
 	int mFocus;
 
-	std::vector<Widget> mWidgets;
+	std::vector<Widget*> mWidgets;
+	std::vector<int> mSelectableIndices;
 };
 
 

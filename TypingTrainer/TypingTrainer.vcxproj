@@ -151,6 +151,10 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="TypingTrainer.cpp" />
     <ClCompile Include="Utill.cpp" />
+    <ClCompile Include="Widget.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Widget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TypingTrainer.h" />

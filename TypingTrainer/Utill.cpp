@@ -1,26 +1,31 @@
 #include "Utill.h"
+#include <Windows.h>
+#include <conio.h>
+#include <iomanip>
+#include <sstream>
+
 using namespace std;
 
 FileManager::FileManager() : mRankings() {
-
+	cout << "생성됨!\n";
 }
 
 FileManager::~FileManager() {
 
 }
 
-void FileManager::RoadRanking()
+void FileManager::RoadRanking() 
 {
 	// txt 파일에 저장된 랭킹 데이터를 mRankings 에 저장
 	ifstream fin;
+	
 
-
-	fin.open("Ranking.txt"); // 임시
-	if (fin.is_open())
+	fin.open("Ranking.txt" ); // 임시
+	if (fin.is_open()) 
 	{
-		while (!fin.eof())
+		while (!fin.eof()) 
 		{
-			string str, tmp;
+			string str,tmp;
 			int acc, time, cpm;
 			getline(fin, tmp);
 			istringstream iss(tmp);
@@ -39,35 +44,28 @@ void FileManager::RoadRanking()
 		ofstream fout;
 		fout.open("Ranking.txt");
 	}
-
+	
 }
 
 void FileManager::SaveRanking() {
 	// mRankings 에 저장된 랭킹 데이터를 txt 파일로 저장
-	ofstream fout;
+	ofstream Write;
 	string tmp;
 
-	fout.open("Ranking.txt");
+	Write.open("Ranking.txt");
 	for (int i = 0; i < mRankings.size(); i++) {
-		if (i == 0) tmp = "";
-		else tmp = "\n";
-		tmp = tmp + mRankings[i].GetNick() + " " + to_string(mRankings[i].GetAccuracy()) + " " + to_string(mRankings[i].GetTime()) + " " + to_string(mRankings[i].GetCPM());
-		fout.write(tmp.c_str(), tmp.size());
+		tmp = "";
+		tmp = tmp + mRankings[i].GetNick() + " " + to_string(mRankings[i].GetAccuracy()) + " " + to_string(mRankings[i].GetTime()) + " " + to_string(mRankings[i].GetCPM()) + "\n";
+		Write.write(tmp.c_str(), tmp.size());
 	}
-	fout.close();
+	Write.close();
 }
 
-void FileManager::showRanking() {
+void FileManager::ShowRanking() {
+
 	for (int i = 0; i < mRankings.size(); i++) {
 		cout << mRankings[i].GetNick() << ", " << mRankings[i].GetAccuracy() << ", " << mRankings[i].GetTime() << ", " << mRankings[i].GetCPM() << "\n";
 	}
-}
-
-void DataSwap(Ranking &a, Ranking &b) {
-	Ranking tmp;
-	tmp = a;
-	a = b;
-	b = tmp;
 }
 
 void FileManager::Realignment(char Type, string Order) {
@@ -75,59 +73,99 @@ void FileManager::Realignment(char Type, string Order) {
 	Ranking tmp;
 
 	if (Order == "UP") {
-		for (int i = 0; i < mRankings.size(); i++) {
-			for (int j = i + 1; j < mRankings.size(); j++) {
-				switch (Type) {
-				case 'N':
+		switch (Type) {
+		case 'N':
+			for (int i = 0; i < mRankings.size(); i++) {
+				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetNick() < mRankings[j].GetNick()) {
-						DataSwap(mRankings[i], mRankings[j]);
+						tmp = mRankings[i];
+						mRankings[i] = mRankings[j];
+						mRankings[j] = tmp;
 					}
-					break;
-				case 'A':
-					if (mRankings[i].GetAccuracy() < mRankings[j].GetAccuracy()) {
-						DataSwap(mRankings[i], mRankings[j]);
-					}
-					break;
-				case 'T':
-					if (mRankings[i].GetTime() < mRankings[j].GetTime()) {
-						DataSwap(mRankings[i], mRankings[j]);
-					}
-					break;
-				case 'C':
-					if (mRankings[i].GetCPM() < mRankings[j].GetCPM()) {
-						DataSwap(mRankings[i], mRankings[j]);
-					}
-					break;
 				}
 			}
+			break;
+		case 'A':
+			for (int i = 0; i < mRankings.size(); i++) {
+				for (int j = i + 1; j < mRankings.size(); j++) {
+					if (mRankings[i].GetAccuracy() < mRankings[j].GetAccuracy()) {
+						tmp = mRankings[i];
+						mRankings[i] = mRankings[j];
+						mRankings[j] = tmp;
+					}
+				}
+			}
+			break;
+		case 'T':
+			for (int i = 0; i < mRankings.size(); i++) {
+				for (int j = i + 1; j < mRankings.size(); j++) {
+					if (mRankings[i].GetTime() < mRankings[j].GetTime()) {
+						tmp = mRankings[i];
+						mRankings[i] = mRankings[j];
+						mRankings[j] = tmp;
+					}
+				}
+			}
+			break;
+		case 'C':
+			for (int i = 0; i < mRankings.size(); i++) {
+				for (int j = i + 1; j < mRankings.size(); j++) {
+					if (mRankings[i].GetCPM() < mRankings[j].GetCPM()) {
+						tmp = mRankings[i];
+						mRankings[i] = mRankings[j];
+						mRankings[j] = tmp;
+					}
+				}
+			}
+			break;
 		}
 	}
 	else { // DOWN
-		for (int i = 0; i < mRankings.size(); i++) {
-			for (int j = i + 1; j < mRankings.size(); j++) {
-				switch (Type) {
-				case 'N':
+		switch (Type) {
+		case 'N':
+			for (int i = 0; i < mRankings.size(); i++) {
+				for (int j = i + 1; j < mRankings.size(); j++) {
 					if (mRankings[i].GetNick() > mRankings[j].GetNick()) {
-						DataSwap(mRankings[i], mRankings[j]);
+						tmp = mRankings[i];
+						mRankings[i] = mRankings[j];
+						mRankings[j] = tmp;
 					}
-					break;
-				case 'A':
-					if (mRankings[i].GetAccuracy() > mRankings[j].GetAccuracy()) {
-						DataSwap(mRankings[i], mRankings[j]);
-					}
-					break;
-				case 'T':
-					if (mRankings[i].GetTime() > mRankings[j].GetTime()) {
-						DataSwap(mRankings[i], mRankings[j]);
-					}
-					break;
-				case 'C':
-					if (mRankings[i].GetCPM() > mRankings[j].GetCPM()) {
-						DataSwap(mRankings[i], mRankings[j]);
-					}
-					break;
 				}
 			}
+			break;
+		case 'A':
+			for (int i = 0; i < mRankings.size(); i++) {
+				for (int j = i + 1; j < mRankings.size(); j++) {
+					if (mRankings[i].GetAccuracy() > mRankings[j].GetAccuracy()) {
+						tmp = mRankings[i];
+						mRankings[i] = mRankings[j];
+						mRankings[j] = tmp;
+					}
+				}
+			}
+			break;
+		case 'T':
+			for (int i = 0; i < mRankings.size(); i++) {
+				for (int j = i + 1; j < mRankings.size(); j++) {
+					if (mRankings[i].GetTime() > mRankings[j].GetTime()) {
+						tmp = mRankings[i];
+						mRankings[i] = mRankings[j];
+						mRankings[j] = tmp;
+					}
+				}
+			}
+			break;
+		case 'C':
+			for (int i = 0; i < mRankings.size(); i++) {
+				for (int j = i + 1; j < mRankings.size(); j++) {
+					if (mRankings[i].GetCPM() > mRankings[j].GetCPM()) {
+						tmp = mRankings[i];
+						mRankings[i] = mRankings[j];
+						mRankings[j] = tmp;
+					}
+				}
+			}
+			break;
 		}
 	}
 
@@ -146,4 +184,73 @@ void Ranking::Update(const string nick, const int acc, const int time, const int
 	mAccuracy = acc;
 	mTime = time;
 	mCPM = cpm;
+}
+
+namespace console
+{
+	// http://www.cplusplus.com/forum/windows/121444/
+
+	void SetColor(unsigned short color)
+
+	{
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+	}
+
+	void SetWindowSize(int x, int y)
+	{
+		HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+
+		if (h == INVALID_HANDLE_VALUE)
+			throw std::runtime_error("Unable to get stdout handle.");
+
+		// If either dimension is greater than the largest console window we can have,
+		// there is no point in attempting the change.
+		{
+			COORD largestSize = GetLargestConsoleWindowSize(h);
+			if (x > largestSize.X)
+				throw std::invalid_argument("The x dimension is too large.");
+			if (y > largestSize.Y)
+				throw std::invalid_argument("The y dimension is too large.");
+		}
+
+
+		CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
+		if (!GetConsoleScreenBufferInfo(h, &bufferInfo))
+			throw std::runtime_error("Unable to retrieve screen buffer info.");
+
+		SMALL_RECT& winInfo = bufferInfo.srWindow;
+		COORD windowSize = { winInfo.Right - winInfo.Left + 1, winInfo.Bottom - winInfo.Top + 1 };
+
+		if (windowSize.X > x || windowSize.Y > y)
+		{
+			// window size needs to be adjusted before the buffer size can be reduced.
+			SMALL_RECT info =
+			{
+				0,
+				0,
+				x < windowSize.X ? x - 1 : windowSize.X - 1,
+				y < windowSize.Y ? y - 1 : windowSize.Y - 1
+			};
+
+			if (!SetConsoleWindowInfo(h, TRUE, &info))
+				throw std::runtime_error("Unable to resize window before resizing buffer.");
+		}
+
+		COORD size = { x, y };
+		if (!SetConsoleScreenBufferSize(h, size))
+			throw std::runtime_error("Unable to resize screen buffer.");
+
+
+		SMALL_RECT info = { 0, 0, x - 1, y - 1 };
+		if (!SetConsoleWindowInfo(h, TRUE, &info))
+			throw std::runtime_error("Unable to resize window after resizing buffer.");
+	}
+
+	void SetCursorVisible(bool visible)
+	{
+		CONSOLE_CURSOR_INFO cur;
+		cur.bVisible = visible;
+		cur.dwSize = 2;
+		SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cur);
+	}
 }
