@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <vector>
 #include <algorithm>
+#include "TypingTrainer.h"
 #include "Screen.h"
 #include "Utill.h"
 
@@ -23,96 +24,11 @@ using namespace std;
 int main()
 {
 
-	//FileManager manager;
+	TypingTrainer trainer;
 
-	//manager.RoadRanking();
-	//manager.ShowRanking();
-	//manager.Realignment('A', "UP");
-	//manager.ShowRanking();
-	//manager.SaveRanking();
+	
 
-	////FileManager manager;
-	Screen sc(60, 40);
-	Screen sc2(60, 40);
-	Screen sc3(60, 40);
-	Widget* t1 = new Widget("Typing Trainer", 20, 20);
-	Widget* t2 = new Button(&sc2, "screen2", 20, 30);
-	Widget* t3 = new Button(&sc3, "screen3", 20, 32);
-
-	Widget* t4 = new Widget("This is screen2", 20, 20);
-	Widget* t5 = new Button(&sc, "Back", 20, 30);
-	sc.AddWidget(t1);
-	sc.AddWidget(t2);
-	sc.AddWidget(t3);
-	sc2.AddWidget(t4);
-	sc2.AddWidget(t5);
-	sc.SetFocus(1);
-	//sc.Show();
-	//char a;
-	//cin >> a;
-
-	char c;
-	vector<char> buf;
-
-	Screen current;
-	current = sc;
-	const vector<int>* selectableIndices = current.GetSelectableIndices();
-	while (true)
-	{
-		current.Show();
-		c = _getch();
-		if (c == 27) {
-			break;
-		}
-		//if (c == '\b') {
-		//    if (buf.empty() == false) {
-		//        buf.pop_back();
-		//    }
-		//    //PrintBuf(buf);
-		//    cout << "\b \b";
-		//}
-		//else if (c == 13) {
-		//    cout << endl;
-		//}
-		//else {
-		//    buf.push_back(c);
-		//    cout << c;
-		//}
-		if (c == 72)
-		{
-			// upwards arrow
-			int size = selectableIndices->size();
-			int focus = current.GetFocus();
-			if (focus > 0)
-			{
-				current.SetFocus(focus - 1);
-			}
-
-		}
-		else if (c == 80)
-		{
-			// downwards arrow
-			int size = selectableIndices->size();
-			int focus = current.GetFocus();
-			if (focus < size - 1)
-			{
-				current.SetFocus(focus + 1);
-			}
-		}
-		else if (c == 32)
-		{
-			int focus = current.GetFocus();
-			Screen* tmp = current.GetWidgets()[selectableIndices->at(focus)]->GetNext();
-			if (tmp != NULL)
-			{
-				current = *tmp;
-				selectableIndices = current.GetSelectableIndices();
-			}
-
-		}
-
-
-	}
+	
 	return 0;
 }
 

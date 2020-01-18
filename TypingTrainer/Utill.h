@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "Screen.h"
 
 using namespace std;
 
@@ -39,7 +40,7 @@ public :
 
 	void Realignment(char Type, string Order);
 
-	void ShowRanking();
+	void ShowRanking(Screen& screen);
 
 private :
 	vector<Ranking> mRankings;

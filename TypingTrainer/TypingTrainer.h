@@ -10,13 +10,14 @@ using namespace std;
 class TypingTrainer {
 public:
 	TypingTrainer();
-	TypingTrainer(const Screen& screen);
 	~TypingTrainer();
 
-	void ScreenSwitching(const Screen& screen);
-	void UtillManageMent();
+
+	void ScreenSwitching();
+	void UtillManageMent(Screen& screen);
 
 private:
-	Screen Cur;						
+	Screen main, langugae, start, ranking, cur, result;
+
 
 };

@@ -61,11 +61,26 @@ void FileManager::SaveRanking() {
 	Write.close();
 }
 
-void FileManager::ShowRanking() {
+void FileManager::ShowRanking(Screen& screen) {
+
+	string tmp;
+	int x, y;
+
+	x = 15;
+	y = 15;
 
 	for (int i = 0; i < mRankings.size(); i++) {
-		cout << mRankings[i].GetNick() << ", " << mRankings[i].GetAccuracy() << ", " << mRankings[i].GetTime() << ", " << mRankings[i].GetCPM() << "\n";
+		tmp = "";
+		tmp += (mRankings[i].GetNick() + ", ");
+		tmp += to_string(mRankings[i].GetAccuracy()) + ", ";
+		tmp += to_string(mRankings[i].GetTime()) + ", ";
+		tmp += to_string(mRankings[i].GetCPM()) + "\n";
+		Widget* temp = new Widget(tmp, x, (y + (2 * i)));
+		screen.AddWidget(temp);
 	}
+
+
+
 }
 
 void FileManager::Realignment(char Type, string Order) {
