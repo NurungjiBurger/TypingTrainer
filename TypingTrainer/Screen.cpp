@@ -42,6 +42,8 @@ void Screen::SetSelectableIndices()
 void Screen::Show() const {
 
 	COORD cur;
+
+	system("cls");
 	console::SetCursorVisible(false);
     console::SetWindowSize(mWidth, mHeight);
 

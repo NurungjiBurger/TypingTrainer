@@ -19,6 +19,7 @@ Widget::Widget(const string& s, int x, int y) : mX(x), mY(y), mSelectable(false)
 
 Screen* Widget::GetNext()
 {
+	cout << "no";
 	return NULL;
 }
 

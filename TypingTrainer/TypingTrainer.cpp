@@ -38,9 +38,14 @@ int main()
      Widget* t1 = new Widget("Typing Trainer", 20, 20);
      Widget* t2 = new Button(&sc2, "screen2", 20, 30);
      Widget* t3 = new Button(&sc3, "screen3", 20, 32);
+
+     Widget* t4 = new Widget("This is screen2", 20, 20);
+     Widget* t5 = new Button(&sc, "Back", 20, 30);
      sc.AddWidget(t1);
      sc.AddWidget(t2);
      sc.AddWidget(t3);
+     sc2.AddWidget(t4);
+     sc2.AddWidget(t5);
      sc.SetFocus(1);
      //sc.Show();
      //char a;
@@ -97,8 +102,13 @@ int main()
         else if (c == 32)
         {
             int focus = current.GetFocus();
-            current = *current.GetWidgets()[selectableIndices->at(focus)]->GetNext();
-            selectableIndices = current.GetSelectableIndices();
+            Screen* tmp = current.GetWidgets()[selectableIndices->at(focus)]->GetNext();
+            if (tmp != NULL)
+            {
+                current = *tmp;
+                selectableIndices = current.GetSelectableIndices();
+            }
+            
         }
         
     
