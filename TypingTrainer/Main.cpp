@@ -21,9 +21,18 @@ using namespace std;
 int main()
 {
 
-	TypingTrainer trainer;
+	char c;
 
-	trainer.UtillManageMent('c');
+	c = _getch();
+	
+	if (c == 13) {
+
+		system("cls");
+
+		TypingTrainer trainer;
+
+		trainer.UtillManageMent();
+	}
 
 	//FileManager manager;
 //     Screen sc(60,40);

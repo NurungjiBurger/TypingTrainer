@@ -43,6 +43,8 @@ public:
 	void AddWidget(const Widget& widget);
 	void Show() const;
 
+	std::vector<Widget>& GetWidgets() { return mWidgets; }
+
 private:
 	int mWidth;
 	int mHeight;
