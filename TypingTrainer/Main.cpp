@@ -17,14 +17,14 @@ using namespace std;
 //        cout << buf[i];
 //    }
 //}
-
+// 75 left 77 right
 int main()
 {
 
 	char c;
 
 	c = _getch();
-	
+
 	if (c == 13) {
 
 		system("cls");

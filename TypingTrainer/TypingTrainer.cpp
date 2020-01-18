@@ -5,27 +5,17 @@ TypingTrainer::TypingTrainer() {
 }
 
 TypingTrainer::TypingTrainer(const Screen& screen) {
-	
-	Screen tmp;
-	vector<Widget> widgets;
-
 	Cur = screen;
-	widgets = Cur.GetWidgets();
-
-	for (int i = 0; i < widgets.size(); i++) {
-		//tmp = widgets[i]; // 위젯 클래스에서 가리키는 특정 스크린을 뽑아서
-		//mSubScreen.push_back(tmp); // 현재 스크린의 서브스크린들에 추가
-
-	}
 }
 
 TypingTrainer::~TypingTrainer() {
 
 }
 
-void TypingTrainer::ScreenSwitching(const Screen& screen) { // 특정 스크린 자체를 변수로 받거나, 번호를 받아서 서브스크린에서 뽑아 사용
+void TypingTrainer::ScreenSwitching(const Screen& screen) { 
 	screen.Show();
-}
+} // 버튼 객체에서 가져온 스크린 정보로 스크린 교체
+// 필요시 addwidget 추가
 
 void TypingTrainer::UtillManageMent() {
 

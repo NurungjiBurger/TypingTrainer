@@ -17,7 +17,6 @@ public:
 	void UtillManageMent();
 
 private:
-	Screen Cur;						// 현재화면
-	vector<Screen> mSubScreens;		// Cur 화면이 가지고 있는 위젯들의 화면
+	Screen Cur;						
 
 };
