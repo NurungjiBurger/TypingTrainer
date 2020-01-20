@@ -13,11 +13,12 @@ public:
 	~TypingTrainer();
 
 
-	void ScreenSwitching();
+	void ScreenOperating();
 	void UtillManageMent(Screen& screen);
 
 private:
 	Screen main, langugae, start, ranking, cur, result;
+	vector<char> buf;
 
 
 };
